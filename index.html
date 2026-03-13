@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funkie Studios</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&amp;family=Orbitron:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0e27;
+      --surface: #0f1535;
+      --text-primary: #e0f0ff;
+      --accent-primary: #00b4ff;
+      --accent-secondary: #0080ff;
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+    }
+    .font-display { font-family: 'Orbitron', sans-serif; }
+    
+    .lightning-glow {
+      filter: drop-shadow(0 0 8px var(--accent-primary)) drop-shadow(0 0 20px var(--accent-primary));
+    }
+    
+    .card-glow {
+      box-shadow: 0 0 0 1px rgba(0, 255, 136, 0.1), 0 4px 30px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+    }
+    .card-glow:hover {
+      box-shadow: 0 0 0 1px rgba(0, 255, 136, 0.3), 0 8px 40px rgba(0, 255, 136, 0.15);
+      transform: translateY(-4px);
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-primary);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
+    }
+    
+    .search-container {
+      background: rgba(20, 20, 31, 0.9);
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      backdrop-filter: blur(10px);
+    }
+    
+    .dev-card {
+      background: linear-gradient(135deg, rgba(20, 20, 31, 0.9) 0%, rgba(30, 30, 45, 0.9) 100%);
+    }
+    
+    .section-hidden { display: none; }
+    .section-visible { display: block; }
+    
+    @keyframes pulse-glow {
+      0%, 100% { filter: drop-shadow(0 0 8px var(--accent-primary)); }
+      50% { filter: drop-shadow(0 0 20px var(--accent-primary)) drop-shadow(0 0 40px var(--accent-primary)); }
+    }
+    
+    .logo-animate:hover svg {
+      animation: pulse-glow 1.5s ease-in-out infinite;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .log-entry {
+      border-left: 3px solid var(--accent-primary);
+      transition: all 0.3s ease;
+    }
+    .log-entry:hover {
+      border-left-color: var(--accent-secondary);
+      background: rgba(0, 255, 136, 0.05);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-primary) 0%, #00cc6a 100%);
+      color: var(--bg-dark);
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+    }
+    
+    .news-badge {
+      background: var(--accent-secondary);
+      font-size: 0.65rem;
+    }
+    
+    .search-result {
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .search-result:hover {
+      background: rgba(0, 255, 136, 0.1);
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'funkie-dark': '#0a0a0f',
+            'funkie-surface': '#14141f',
+            'funkie-text': '#e8e8f0',
+            'funkie-accent': '#00ff88',
+            'funkie-secondary': '#ff6b35'
+          }
+        }
+      }
+    }
+  </script>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app-wrapper" class="min-h-full w-full overflow-auto" style="background: linear-gradient(180deg, #0a0a0f 0%, #0f0f18 50%, #0a0a0f 100%);"><!-- Header -->
+   <header class="sticky top-0 z-50 bg-funkie-dark/95 backdrop-blur-md border-b border-funkie-accent/20">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+     <div class="flex items-center justify-between"><!-- Logo --> <a href="#home" class="logo-animate flex items-center gap-3 group" onclick="navigateTo('home')">
+       <svg class="w-10 h-10 md:w-12 md:h-12 lightning-glow" viewbox="0 0 48 48" fill="none"><path d="M28 4L12 26H22L18 44L36 20H25L28 4Z" fill="#00d4ff" stroke="#00d4ff" stroke-width="1" /> <path d="M28 4L12 26H22L18 44L36 20H25L28 4Z" fill="url(#lightning-grad)" /> <defs>
+         <lineargradient id="lightning-grad" x1="12" y1="4" x2="36" y2="44" gradientunits="userSpaceOnUse">
+          <stop stop-color="#00d4ff" />
+          <stop offset="1" stop-color="#0099ff" />
+         </lineargradient>
+        </defs>
+       </svg><span class="font-display text-xl md:text-2xl font-bold tracking-wider">FUNKIE<span class="text-funkie-accent">.</span></span> </a> <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8"><a href="#home" class="nav-link text-sm font-semibold uppercase tracking-wider active" onclick="navigateTo('home')" data-nav="home">Home</a> <a href="#devlog" class="nav-link text-sm font-semibold uppercase tracking-wider" onclick="navigateTo('devlog')" data-nav="devlog">Dev Log</a> <a href="#news" class="nav-link text-sm font-semibold uppercase tracking-wider" onclick="navigateTo('news')" data-nav="news">News</a> <a href="#crew" class="nav-link text-sm font-semibold uppercase tracking-wider" onclick="navigateTo('crew')" data-nav="crew">The Crew</a> <a href="#youtube" class="nav-link text-sm font-semibold uppercase tracking-wider" onclick="navigateTo('youtube')" data-nav="youtube">YouTube</a>
+      </nav><!-- Search & Mobile Menu -->
+      <div class="flex items-center gap-3"><button onclick="toggleSearch()" class="p-2 rounded-lg hover:bg-funkie-surface transition-colors" aria-label="Search">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg></button> <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg hover:bg-funkie-surface transition-colors" aria-label="Menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg></button>
+      </div>
+     </div><!-- Mobile Nav -->
+     <nav id="mobile-nav" class="hidden md:hidden mt-4 pb-2 border-t border-funkie-accent/20 pt-4">
+      <div class="flex flex-col gap-3"><a href="#home" class="nav-link text-sm font-semibold uppercase tracking-wider py-2" onclick="navigateTo('home'); toggleMobileMenu();" data-nav="home">Home</a> <a href="#devlog" class="nav-link text-sm font-semibold uppercase tracking-wider py-2" onclick="navigateTo('devlog'); toggleMobileMenu();" data-nav="devlog">Dev Log</a> <a href="#news" class="nav-link text-sm font-semibold uppercase tracking-wider py-2" onclick="navigateTo('news'); toggleMobileMenu();" data-nav="news">News</a> <a href="#crew" class="nav-link text-sm font-semibold uppercase tracking-wider py-2" onclick="navigateTo('crew'); toggleMobileMenu();" data-nav="crew">The Crew</a> <a href="#youtube" class="nav-link text-sm font-semibold uppercase tracking-wider py-2" onclick="navigateTo('youtube'); toggleMobileMenu();" data-nav="youtube">YouTube</a>
+      </div>
+     </nav>
+    </div>
+   </header><!-- Search Modal -->
+   <div id="search-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div class="search-container w-full max-w-xl rounded-2xl p-6">
+     <div class="flex items-center gap-3 mb-4">
+      <svg class="w-5 h-5 text-funkie-accent" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg><input type="text" id="search-input" placeholder="Search sections..." class="flex-1 bg-transparent border-none outline-none text-lg" oninput="handleSearch(this.value)"> <button onclick="toggleSearch()" class="p-2 hover:bg-funkie-surface rounded-lg transition-colors">
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+       </svg></button>
+     </div>
+     <div id="search-results" class="space-y-2">
+      <div class="search-result p-3 rounded-lg" onclick="navigateTo('home'); toggleSearch();">
+       <p class="font-semibold text-funkie-accent">Home</p>
+       <p class="text-sm text-funkie-text/60">Main landing page &amp; studio overview</p>
+      </div>
+      <div class="search-result p-3 rounded-lg" onclick="navigateTo('devlog'); toggleSearch();">
+       <p class="font-semibold text-funkie-accent">Dev Log</p>
+       <p class="text-sm text-funkie-text/60">Funkie Football development updates</p>
+      </div>
+      <div class="search-result p-3 rounded-lg" onclick="navigateTo('news'); toggleSearch();">
+       <p class="font-semibold text-funkie-accent">News</p>
+       <p class="text-sm text-funkie-text/60">Latest announcements &amp; updates</p>
+      </div>
+      <div class="search-result p-3 rounded-lg" onclick="navigateTo('crew'); toggleSearch();">
+       <p class="font-semibold text-funkie-accent">The Crew</p>
+       <p class="text-sm text-funkie-text/60">Meet Shaun &amp; Xande</p>
+      </div>
+      <div class="search-result p-3 rounded-lg" onclick="navigateTo('youtube'); toggleSearch();">
+       <p class="font-semibold text-funkie-accent">YouTube</p>
+       <p class="text-sm text-funkie-text/60">Watch our channel &amp; videos</p>
+      </div>
+     </div>
+    </div>
+   </div><!-- Main Content -->
+   <main class="max-w-7xl mx-auto px-4 py-8"><!-- Home Section -->
+    <section id="section-home" class="section-visible"><!-- Hero -->
+     <div class="text-center py-12 md:py-20">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-funkie-surface border border-funkie-accent/30 mb-6"><span class="w-2 h-2 rounded-full bg-funkie-accent animate-pulse"></span> <span class="text-sm font-medium">Now Developing: Funkie Football</span>
+      </div>
+      <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-black mb-4"><span class="gradient-text" id="studio-name">FUNKIE STUDIOS</span></h1>
+      <p class="text-lg md:text-xl text-funkie-text/70 max-w-2xl mx-auto mb-8" id="tagline-text">Crafting electrifying gaming experiences that spark joy and ignite competition.</p>
+      <div class="flex flex-wrap justify-center gap-4"><button onclick="navigateTo('devlog')" class="btn-primary px-8 py-3 rounded-xl font-display uppercase tracking-wider"> View Dev Log </button> <button onclick="navigateTo('crew')" class="px-8 py-3 rounded-xl border border-funkie-accent/50 hover:bg-funkie-accent/10 transition-colors font-display uppercase tracking-wider"> Meet The Team </button>
+      </div>
+     </div><!-- Featured Game -->
+     <div class="card-glow rounded-2xl overflow-hidden bg-funkie-surface mb-12">
+      <div class="grid md:grid-cols-2 gap-6">
+       <div class="p-8 flex flex-col justify-center"><span class="text-funkie-secondary font-semibold text-sm uppercase tracking-wider mb-2">Featured Project</span>
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">FUNKIE FOOTBALL</h2>
+        <p class="text-funkie-text/70 mb-6" id="game-desc-text">An arcade-style football experience with explosive gameplay, vibrant visuals, and competitive multiplayer action. Score goals, pull off insane tricks, and dominate the pitch!</p>
+        <div class="flex flex-wrap gap-3"><span class="px-3 py-1 rounded-full bg-funkie-accent/20 text-funkie-accent text-sm">Arcade Sports</span> <span class="px-3 py-1 rounded-full bg-funkie-secondary/20 text-funkie-secondary text-sm">Multiplayer</span> <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 text-sm">In Development</span>
+        </div>
+       </div>
+       <div class="relative h-64 md:h-auto bg-gradient-to-br from-funkie-accent/20 via-funkie-surface to-funkie-secondary/20 flex items-center justify-center">
+        <svg class="w-32 h-32 opacity-30" viewbox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="45" stroke="#00d4ff" stroke-width="2" /> <path d="M50 15 L50 85 M15 50 L85 50" stroke="#00d4ff" stroke-width="2" /> <circle cx="50" cy="50" r="15" stroke="#0099ff" stroke-width="2" />
+        </svg>
+        <div class="absolute inset-0 flex items-center justify-center"><span class="font-display text-6xl font-black text-funkie-accent/20">⚽</span>
+        </div>
+       </div>
+      </div>
+     </div><!-- Quick Stats -->
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+      <div class="card-glow bg-funkie-surface rounded-xl p-6 text-center">
+       <p class="font-display text-3xl font-bold text-funkie-accent">2</p>
+       <p class="text-sm text-funkie-text/60 mt-1">Developers</p>
+      </div>
+      <div class="card-glow bg-funkie-surface rounded-xl p-6 text-center">
+       <p class="font-display text-3xl font-bold text-funkie-secondary">1</p>
+       <p class="text-sm text-funkie-text/60 mt-1">Game in Dev</p>
+      </div>
+      <div class="card-glow bg-funkie-surface rounded-xl p-6 text-center">
+       <p class="font-display text-3xl font-bold text-purple-400">∞</p>
+       <p class="text-sm text-funkie-text/60 mt-1">Passion</p>
+      </div>
+      <div class="card-glow bg-funkie-surface rounded-xl p-6 text-center">
+       <p class="font-display text-3xl font-bold text-cyan-400">24/7</p>
+       <p class="text-sm text-funkie-text/60 mt-1">Grinding</p>
+      </div>
+     </div>
+    </section><!-- Dev Log Section -->
+    <section id="section-devlog" class="section-hidden">
+     <div class="mb-8">
+      <h2 class="font-display text-3xl md:text-4xl font-bold mb-2"><span class="text-funkie-accent">//</span> DEV LOG</h2>
+      <p class="text-funkie-text/60">Follow the journey of Funkie Football development</p>
+     </div>
+     <div class="space-y-6">
+      <article class="log-entry bg-funkie-surface rounded-xl p-6 pl-8">
+       <div class="flex flex-wrap items-center gap-3 mb-3"><span class="px-3 py-1 rounded-full bg-funkie-accent/20 text-funkie-accent text-xs font-semibold">GAMEPLAY</span> <span class="text-funkie-text/40 text-sm">Dec 15, 2024</span>
+       </div>
+       <h3 class="font-display text-xl font-bold mb-2">New Trick System Implemented</h3>
+       <p class="text-funkie-text/70">Added a brand new skill move system! Players can now perform rainbow flicks, elasticos, and the signature "Funkie Flip" that sends goalkeepers flying. Still tweaking the timing windows.</p>
+      </article>
+      <article class="log-entry bg-funkie-surface rounded-xl p-6 pl-8">
+       <div class="flex flex-wrap items-center gap-3 mb-3"><span class="px-3 py-1 rounded-full bg-funkie-secondary/20 text-funkie-secondary text-xs font-semibold">VISUALS</span> <span class="text-funkie-text/40 text-sm">Dec 10, 2024</span>
+       </div>
+       <h3 class="font-display text-xl font-bold mb-2">Stadium Lighting Overhaul</h3>
+       <p class="text-funkie-text/70">Completely reworked the stadium lighting system. Night games now have that electric atmosphere with dynamic crowd shadows and volumetric light beams. Xande outdid himself on this one!</p>
+      </article>
+      <article class="log-entry bg-funkie-surface rounded-xl p-6 pl-8">
+       <div class="flex flex-wrap items-center gap-3 mb-3"><span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 text-xs font-semibold">MULTIPLAYER</span> <span class="text-funkie-text/40 text-sm">Dec 5, 2024</span>
+       </div>
+       <h3 class="font-display text-xl font-bold mb-2">Online Matches Beta</h3>
+       <p class="text-funkie-text/70">First successful online match! Latency compensation is working better than expected. Shaun managed to score a hat-trick against Xande from across the country. Bragging rights secured.</p>
+      </article>
+      <article class="log-entry bg-funkie-surface rounded-xl p-6 pl-8">
+       <div class="flex flex-wrap items-center gap-3 mb-3"><span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-400 text-xs font-semibold">AUDIO</span> <span class="text-funkie-text/40 text-sm">Nov 28, 2024</span>
+       </div>
+       <h3 class="font-display text-xl font-bold mb-2">Crowd Chants &amp; Commentary</h3>
+       <p class="text-funkie-text/70">Recorded custom crowd chants and implemented dynamic commentary that reacts to gameplay. The "GOOOOOAL!" scream is absolutely perfect. Can't stop scoring just to hear it.</p>
+      </article>
+      <article class="log-entry bg-funkie-surface rounded-xl p-6 pl-8">
+       <div class="flex flex-wrap items-center gap-3 mb-3"><span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-semibold">MILESTONE</span> <span class="text-funkie-text/40 text-sm">Nov 20, 2024</span>
+       </div>
+       <h3 class="font-display text-xl font-bold mb-2">Core Gameplay Complete!</h3>
+       <p class="text-funkie-text/70">Major milestone achieved! All core gameplay mechanics are now implemented. Passing, shooting, tackling, and goalkeeping all feel tight and responsive. Time to polish and add the funkie flair!</p>
+      </article>
+     </div>
+    </section><!-- News Section -->
+    <section id="section-news" class="section-hidden">
+     <div class="mb-8">
+      <h2 class="font-display text-3xl md:text-4xl font-bold mb-2"><span class="text-funkie-secondary">//</span> NEWS</h2>
+      <p class="text-funkie-text/60">Latest updates from Funkie Studios</p>
+     </div>
+     <div class="grid md:grid-cols-2 gap-6">
+      <article class="card-glow bg-funkie-surface rounded-xl overflow-hidden">
+       <div class="h-40 bg-gradient-to-br from-funkie-accent/30 to-funkie-secondary/30 flex items-center justify-center"><span class="text-6xl">🎮</span>
+       </div>
+       <div class="p-6">
+        <div class="flex items-center gap-2 mb-3"><span class="news-badge px-2 py-0.5 rounded-full uppercase font-bold">New</span> <span class="text-funkie-text/40 text-sm">Dec 18, 2024</span>
+        </div>
+        <h3 class="font-display text-xl font-bold mb-2">Funkie Football Demo Coming Soon!</h3>
+        <p class="text-funkie-text/70 text-sm">We're preparing a playable demo for early 2025. Sign up for our newsletter to be first in line!</p>
+       </div>
+      </article>
+      <article class="card-glow bg-funkie-surface rounded-xl overflow-hidden">
+       <div class="h-40 bg-gradient-to-br from-purple-500/30 to-cyan-500/30 flex items-center justify-center"><span class="text-6xl">📺</span>
+       </div>
+       <div class="p-6">
+        <div class="flex items-center gap-2 mb-3"><span class="text-funkie-text/40 text-sm">Dec 12, 2024</span>
+        </div>
+        <h3 class="font-display text-xl font-bold mb-2">New YouTube Series: Behind the Code</h3>
+        <p class="text-funkie-text/70 text-sm">Join us every week as we break down the technical challenges and creative decisions behind Funkie Football.</p>
+       </div>
+      </article>
+      <article class="card-glow bg-funkie-surface rounded-xl overflow-hidden">
+       <div class="h-40 bg-gradient-to-br from-funkie-secondary/30 to-yellow-500/30 flex items-center justify-center"><span class="text-6xl">🏆</span>
+       </div>
+       <div class="p-6">
+        <div class="flex items-center gap-2 mb-3"><span class="text-funkie-text/40 text-sm">Dec 1, 2024</span>
+        </div>
+        <h3 class="font-display text-xl font-bold mb-2">Indie Dev Spotlight Feature</h3>
+        <p class="text-funkie-text/70 t
